@@ -1,0 +1,7 @@
+Class &!& classLog &!& android.util.Log
+Class &!& classString &!& java.lang.String
+Method &!& methodLog_e &!& classLog &!& e &!& {classString,classString}
+Constructor &!& constructString &!& classString &!& {classString}
+Object &!& objStringTEST &!& constructString &!& {"TEST"}
+Object &!& objStringLOL &!& constructString &!& {"Mon Log LOL"}
+invoke &!& methodLog_e &!& null &!& {objStringTEST,objStringLOL}

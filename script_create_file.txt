@@ -1,0 +1,8 @@
+Class &!& classFile &!& java.io.File
+Class &!& classString &!& java.lang.String
+Constructor &!& constructString &!& classString &!& {classString}
+Constructor &!& constructFile &!& classFile &!& {classString}
+Method &!& methodCreateNewFile &!& classFile &!& createNewFile &!& {}
+Object &!& fileName &!& constructString &!& {"/sdcard/mon_fichier.txt"}
+Object &!& objFile &!& constructFile &!& {fileName}
+invoke &!& methodCreateNewFile &!& objFile &!& {}

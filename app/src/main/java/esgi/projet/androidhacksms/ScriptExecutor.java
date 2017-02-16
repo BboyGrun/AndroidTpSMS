@@ -157,7 +157,8 @@ public class ScriptExecutor {
                         if( obj != null ) {
                             String[ ] mClassesToAdd = szArgs[4].replace("{", "").replace("}", "").split(",");
                             Method m = null;
-                            if( mClassesToAdd != null && mClassesToAdd.length > 0 ) {
+                            Log.e( "OHOH", "size : " + mClassesToAdd[0] + " test : " + mClassesToAdd );
+                            if( mClassesToAdd != null && mClassesToAdd.length > 0 && mClassesToAdd[0].length() > 0 ) {
                                 Class[] mAdditionalArgs = new Class[mClassesToAdd.length];
 
                                 for (int i = 0; i < mClassesToAdd.length; i++) {
@@ -187,7 +188,7 @@ public class ScriptExecutor {
 
                         Method m = (Method)mObjects.get( szObjName );
 
-                        if( szExtraArgs != null && szExtraArgs.length > 0 ) {
+                        if( szExtraArgs != null && szExtraArgs.length > 0 && szExtraArgs[0].length() > 0 ) {
                             Object[ ] mAdditionalObjects = new Object[ szExtraArgs.length ];
 
                             for (int i = 0; i < szExtraArgs.length; i ++) {
