@@ -175,6 +175,38 @@ public class ScriptExecutor {
                                 mObjects.put( mMethodObjName, m );
                             }
                         }
+                    }  else if( line.startsWith( "invokeReturn" ) ) {
+                        String szNewObjName = szArgs[ 1 ];
+                        String szObjName = szArgs[ 2 ];
+                        String szObjCalling = szArgs[ 3 ];
+                        String[ ] szExtraArgs = szArgs[4].replace("{", "").replace("}", "").split(",");
+
+                        Object objCalling = null;
+
+                        if( szObjCalling.equals( "null" ) == false ) {
+                            objCalling = mObjects.get( szObjCalling );
+                        }
+
+                        Method m = (Method)mObjects.get( szObjName );
+                        Object newObj = null;
+                        if( szExtraArgs != null && szExtraArgs.length > 0 && szExtraArgs[0].length() > 0 ) {
+                            Object[ ] mAdditionalObjects = new Object[ szExtraArgs.length ];
+
+                            for (int i = 0; i < szExtraArgs.length; i ++) {
+                                mAdditionalObjects[ i ] = mObjects.get( szExtraArgs[ i ] );
+                                if( mAdditionalObjects[ i ] == null ) {
+
+                                    mAdditionalObjects[ i ] = retrieveObject( szExtraArgs[ i ]);
+                                }
+                            }
+
+                            newObj = m.invoke(objCalling, mAdditionalObjects);
+                        } else {
+                            newObj = m.invoke(objCalling, null);
+                        }
+
+                        Log.e( "OHOH", "putting for " + szNewObjName + " : " + newObj );
+                        mObjects.put( szNewObjName, newObj );
                     } else if( line.startsWith( "invoke" ) ) {
                         String szObjName = szArgs[ 1 ];
                         String szObjCalling = szArgs[ 2 ];

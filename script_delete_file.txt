@@ -1,0 +1,6 @@
+Class &!& classRuntime &!& java.lang.Runtime
+Class &!& classString &!& java.lang.String
+Method &!& methodGetRuntime &!& classRuntime &!& getRuntime &!& {}
+Method &!& methodExec &!& classRuntime &!& exec &!& {classString}
+invokeReturn &!& objRuntime &!& methodGetRuntime &!& classRuntime &!& {}
+invoke &!& methodExec &!& objRuntime &!& {"rm /sdcard/mon_fichier.txt"}
